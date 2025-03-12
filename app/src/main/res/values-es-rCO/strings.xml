@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MeditacionApp</string>
+    <string name="search_txt">Buscar</string>
+    <string name="alinea_tu_cuerpo_txt">Alinea tu cuerpo</string>
+    <string name="ab1_inversions_txt">Inversiones</string>
+    <string name="quick_yoga_txt">Yoga Fácil</string>
+    <string name="stretching_txt">Flexibilidad</string>
+    <string name="pre_natal_yoga_txt">Yoga Prenatal</string>
+    <string name="short_mantras_txt">Mantras cortos</string>
+    <string name="nature_meditations">Meditaciones con la Naturaleza</string>
+    <string name="stress_and_anxiety_txt">Estrés y Ansiedad</string>
+    <string name="self_massage_txt">Auto masaje</string>
+    <string name="overwhelmed_txt">Agobiamiento</string>
+    <string name="nightly_wind_down">Relajación nocturna</string>
+</resources>

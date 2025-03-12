@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MeditationApp</string>
+    <string name="search_txt">Search</string>
+    <string name="alinea_tu_cuerpo_txt">Aling Your Body</string>
+    <string name="ab1_inversions_txt">Inversions</string>
+    <string name="quick_yoga_txt">Quick Yoga</string>
+    <string name="stretching_txt">Stretching</string>
+    <string name="tabata_txt" translatable="false">Tabata</string>
+    <string name="hiit_txt" translatable="false">Hiit</string>
+    <string name="pre_natal_yoga_txt">Prenatal Yoga</string>
+    <string name="short_mantras_txt">Short Mantras</string>
+    <string name="nature_meditations">Nature meditations</string>
+    <string name="stress_and_anxiety_txt">Stress and Anxiety</string>
+    <string name="self_massage_txt">Self Massage</string>
+    <string name="overwhelmed_txt">Overwhelmed</string>
+    <string name="nightly_wind_down">Nightly wind down</string>
+</resources>
