@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -147,6 +149,31 @@ fun TarjetaColeccionesFavoritas(
     }
 }
 
+@Composable
+fun FilaAlineaTuCuerpo(
+    modifier: Modifier = Modifier
+){
+    LazyRow (
+        modifier = modifier
+    ) {
+        items(datosAlineaTuCuerpo){
+            CuadroAlineaTuCuerpo(
+                imgId = it.imageId,
+                descripcionId = it.textId,
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewFilaAlineaTuCuerpo(){
+    FilaAlineaTuCuerpo()
+}
+
+
+
+
 @Preview
 @Composable
 fun PreviewTarjetaColeccionesFavoritas(){
@@ -157,3 +184,27 @@ fun PreviewTarjetaColeccionesFavoritas(){
 
     )
 }
+
+private val datosAlineaTuCuerpo = listOf(
+    R.drawable.ab1_inversions to R.string.ab1_inversions_txt,
+    R.drawable.ab2_quick_yoga to R.string.quick_yoga_txt,
+    R.drawable.ab4_tabata to R.string.tabata_txt,
+    R.drawable.ab3_stretching to R.string.stretching_txt,
+    R.drawable.ab5_hiit to R.string.hiit_txt,
+    R.drawable.ab6_pre_natal_yoga to R.string.pre_natal_yoga_txt
+).map { DrawableResourcePair(it.first, it.second) }
+
+private val datosColeccionesFavoritas = listOf(
+    R.drawable.fc1_short_mantras to R.string.short_mantras_txt,
+    R.drawable.fc2_nature_meditations to R.string.nature_meditations,
+    R.drawable.fc3_stress_and_anxiety to R.string.stress_and_anxiety_txt,
+    R.drawable.fc4_self_massage to R.string.self_massage_txt,
+    R.drawable.fc5_overwhelmed to R.string.overwhelmed_txt,
+    R.drawable.fc6_nightly_wind_down to R.string.nightly_wind_down
+).map { DrawableResourcePair(it.first, it.second) }
+
+
+private data class DrawableResourcePair(
+    @DrawableRes val imageId: Int,
+    @StringRes val textId: Int
+)
