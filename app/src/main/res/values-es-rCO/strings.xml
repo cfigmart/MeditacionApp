@@ -14,4 +14,6 @@
     <string name="overwhelmed_txt">Agobiamiento</string>
     <string name="nightly_wind_down">Relajación nocturna</string>
     <string name="favorite_coleccions_txt">Colecciones Favoritas</string>
+    <string name="bottom_nav_home_txt">Inicio</string>
+    <string name="botton_nav_profile_txt">Perfil</string>
 </resources>
