@@ -7,25 +7,28 @@ import androidx.activity.enableEdgeToEdge
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -47,7 +50,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MeditacionAppTheme {
-
+                PantallaPrincipal()
             }
         }
     }
@@ -150,6 +153,34 @@ fun TarjetaColeccionesFavoritas(
 }
 
 @Composable
+fun CuadriculaColeccionesFavoritas(
+    modifier: Modifier = Modifier
+){
+    LazyHorizontalGrid(
+        rows = GridCells.Fixed(2),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = modifier.height(168.dp),
+    ) {
+        items(datosColeccionesFavoritas){
+            TarjetaColeccionesFavoritas(
+                imgId =  it.imageId,
+                descripcionId = it.textId,
+                modifier = Modifier.height(80.dp)
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewCuadriculaColeccionesFavoritas(){
+    CuadriculaColeccionesFavoritas()
+}
+
+
+@Composable
 fun FilaAlineaTuCuerpo(
     modifier: Modifier = Modifier
 ){
@@ -185,6 +216,74 @@ fun PreviewTarjetaColeccionesFavoritas(){
     )
 }
 
+@Composable
+fun SeccionInicio(
+    @StringRes tituloId: Int,
+    modifier: Modifier = Modifier,
+    contenidoComponible: @Composable () ->Unit
+){
+    Column {
+        Text(
+            text = stringResource(tituloId),
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier
+                .paddingFromBaseline(top = 40.dp, bottom = 16.dp)
+                .padding(horizontal = 16.dp)
+        )
+        contenidoComponible()
+    }
+}
+
+@Preview
+@Composable
+fun PreviewSeccionInicio(){
+    SeccionInicio(
+        R.string.alinea_tu_cuerpo_txt,
+    ) {
+        FilaAlineaTuCuerpo()
+    }
+}
+
+
+@Preview
+@Composable
+fun PreviewSeccionInicio2(){
+    SeccionInicio(
+        R.string.favorite_coleccions_txt,
+    ) {
+        CuadriculaColeccionesFavoritas()
+    }
+}
+
+@Composable
+fun PantallaPrincipal(){
+    Column {
+        Spacer(Modifier.height(16.dp))
+        BarraDeBusqueda(
+            Modifier.padding(horizontal = 16.dp)
+        )
+        SeccionInicio(
+            R.string.alinea_tu_cuerpo_txt,
+        ) {
+            FilaAlineaTuCuerpo()
+        }
+        SeccionInicio(
+            R.string.favorite_coleccions_txt,
+        ) {
+            CuadriculaColeccionesFavoritas()
+        }
+        Spacer(Modifier.height(16.dp))
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
+@Composable
+fun PreviewPantallaPrincipal(){
+    MeditacionAppTheme {
+        PantallaPrincipal()
+    }
+}
+
 private val datosAlineaTuCuerpo = listOf(
     R.drawable.ab1_inversions to R.string.ab1_inversions_txt,
     R.drawable.ab2_quick_yoga to R.string.quick_yoga_txt,
@@ -192,7 +291,7 @@ private val datosAlineaTuCuerpo = listOf(
     R.drawable.ab3_stretching to R.string.stretching_txt,
     R.drawable.ab5_hiit to R.string.hiit_txt,
     R.drawable.ab6_pre_natal_yoga to R.string.pre_natal_yoga_txt
-).map { DrawableResourcePair(it.first, it.second) }
+).map { ImagenTextoDibujables(it.first, it.second) }
 
 private val datosColeccionesFavoritas = listOf(
     R.drawable.fc1_short_mantras to R.string.short_mantras_txt,
@@ -201,10 +300,10 @@ private val datosColeccionesFavoritas = listOf(
     R.drawable.fc4_self_massage to R.string.self_massage_txt,
     R.drawable.fc5_overwhelmed to R.string.overwhelmed_txt,
     R.drawable.fc6_nightly_wind_down to R.string.nightly_wind_down
-).map { DrawableResourcePair(it.first, it.second) }
+).map { ImagenTextoDibujables(it.first, it.second) }
 
 
-private data class DrawableResourcePair(
+private data class ImagenTextoDibujables(
     @DrawableRes val imageId: Int,
     @StringRes val textId: Int
 )
