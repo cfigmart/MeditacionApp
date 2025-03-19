@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -33,10 +34,17 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationRail
+import androidx.compose.material3.NavigationRailItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,13 +57,28 @@ import androidx.compose.ui.unit.dp
 import edu.unicauca.aplimovil.meditacionapp.ui.theme.MeditacionAppTheme
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             MeditacionAppTheme {
-                PantallaPrincipal()
+                val windowSizeClass = calculateWindowSizeClass(this)
+                PantallaInicial(windowSizeClass)
+
             }
+        }
+    }
+}
+
+@Composable
+fun PantallaInicial(windowSize: WindowSizeClass){
+    when (windowSize.widthSizeClass) {
+        WindowWidthSizeClass.Compact -> {
+            PantallaPrincipalVertical()
+        }
+        WindowWidthSizeClass.Expanded -> {
+            PantallaPrincipalHorizontal()
         }
     }
 }
@@ -260,7 +283,43 @@ fun PreviewSeccionInicio2(){
 }
 
 @Composable
-fun PantallaPrincipal(){
+fun PantallaPrincipalHorizontal(){
+    Row {
+        BarraNavegacionIzquierda()
+        PantallaPrincipal()
+    }
+}
+
+@Preview(showSystemUi = true,
+    device = "spec:width=411dp,height=891dp,dpi=420,isRound=false,chinSize=0dp,orientation=landscape")
+@Composable
+fun PreviewPantallaPrincipalHorizontal(){
+    PantallaPrincipalHorizontal()
+}
+
+@Composable
+fun PantallaPrincipalVertical(){
+    Scaffold(
+        bottomBar = { BarraNavegacionInferior() }
+    ) {
+
+        PantallaPrincipal(Modifier.padding(it))
+
+    }
+}
+
+@Preview
+@Composable
+fun PreviewPantallaPrincipalVertical(){
+    PantallaPrincipalVertical()
+}
+
+
+
+@Composable
+fun PantallaPrincipal(
+    modifier: Modifier = Modifier
+){
     Column {
         Spacer(Modifier.height(16.dp))
         BarraDeBusqueda(
@@ -287,6 +346,58 @@ fun PreviewPantallaPrincipal(){
         PantallaPrincipal()
     }
 }
+
+@Preview
+@Composable
+fun PreviewBarraNavegacionIzquierda(){
+    BarraNavegacionIzquierda()
+}
+
+@Composable
+fun BarraNavegacionIzquierda(
+    modifier: Modifier = Modifier
+){
+    NavigationRail (
+        modifier = modifier.padding(start = 8.dp, end = 8.dp),
+        containerColor = MaterialTheme.colorScheme.background,
+    ){
+        Column(
+            modifier = modifier.fillMaxHeight(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            NavigationRailItem(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.Home,
+                        contentDescription = null
+                    )
+                },
+                label = {
+                    Text(stringResource(R.string.bottom_nav_home_txt))
+                },
+                selected = true,
+                onClick = {}
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            NavigationRailItem(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.AccountCircle,
+                        contentDescription = null
+                    )
+                },
+                label = {
+                    Text(stringResource(R.string.botton_nav_profile_txt))
+                },
+                selected = true,
+                onClick = {}
+            )
+        }
+    }
+}
+
+
 
 @Composable
 fun BarraNavegacionInferior(
