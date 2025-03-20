@@ -30,6 +30,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -46,6 +47,11 @@ import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -87,9 +93,10 @@ fun PantallaInicial(windowSize: WindowSizeClass){
 fun BarraDeBusqueda(
     modifier: Modifier = Modifier
 ){
+    var texto by rememberSaveable { mutableStateOf("") }
     TextField(
-        value = "",
-        onValueChange = {},
+        value = texto,
+        onValueChange = {texto = it},
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,
@@ -308,6 +315,37 @@ fun PantallaPrincipalVertical(){
     }
 }
 
+
+@Preview
+@Composable
+fun PreviewContadorTextoBoton(){
+    ContadorTextoBoton()
+}
+
+@Composable
+fun ContadorTextoBoton(
+    modifier: Modifier = Modifier
+){
+    var contador by rememberSaveable { mutableStateOf(0) }
+    Column (){
+        Text(
+            text = "${contador}",
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(horizontal = 16.dp)
+        )
+        Button(
+            onClick = {
+                contador++
+                //println("Contador ${contador}")
+
+            }
+        ) {
+            Text(
+                text = stringResource(R.string.bt_increase))
+        }
+    }
+}
+
 @Preview
 @Composable
 fun PreviewPantallaPrincipalVertical(){
@@ -325,6 +363,8 @@ fun PantallaPrincipal(
         BarraDeBusqueda(
             Modifier.padding(horizontal = 16.dp)
         )
+        Spacer(Modifier.height(16.dp))
+        ContadorTextoBoton(modifier)
         SeccionInicio(
             R.string.alinea_tu_cuerpo_txt,
         ) {

@@ -16,4 +16,5 @@
     <string name="favorite_coleccions_txt">Colecciones Favoritas</string>
     <string name="bottom_nav_home_txt">Inicio</string>
     <string name="botton_nav_profile_txt">Perfil</string>
+    <string name="bt_increase">Incrementar Contador</string>
 </resources>

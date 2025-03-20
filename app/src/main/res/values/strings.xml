@@ -17,4 +17,5 @@
     <string name="favorite_coleccions_txt">Favorite Collections</string>
     <string name="bottom_nav_home_txt">Home</string>
     <string name="botton_nav_profile_txt">Profile</string>
+    <string name="bt_increase">Increase Counter</string>
 </resources>
